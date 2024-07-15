@@ -1,12 +1,17 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const debgr = require("debug")("development:mongoose");
+const config = require("config")
 
+debgr("hello")
 mongoose
-.connect("mongodb://127.0.0.1:27017/bequem")
+.connect(`${config.get("MONGODB_URI")}/bequem`)
 .then(()=>{
-  console.log("connected");
+  debgr("connected");
 })
 .catch((err)=>{
-  console.log(err);
+  debgr(err);
 })
 
 module.exports = mongoose.connection;
+
+// how to make variable ======= $env:DEBUG="development:*"
